@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewYorkViewController: UIViewController {
+class NewYorkViewController: UIViewController, LondonViewControllerDelegate {
     
     // View elements
     @IBOutlet weak var receivedHeaderLabel: UILabel!
@@ -42,10 +42,20 @@ class NewYorkViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "sentSegue" {
+          let dest = segue.destination as! LondonViewController
+          dest.delegate = self
             
         }
         
     }
+
+  func letterSent(from: LondonViewController, message: String) {
+    receivedHeaderLabel.isHidden = false
+    letterTextView.isHidden = false
+    packageImageView.isHidden = true
+    sendButton.isHidden = true
+    letterTextView.text = message
+  }
     
     // MARK: Animation
     
